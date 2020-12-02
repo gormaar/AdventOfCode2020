@@ -25,9 +25,8 @@ def day1_part2():
     ans = 0
     for line in passwords:
         letter = re.search(r'([a-z]+):', line).group(1)
-        pw = re.search(r': ([a-z]+)', line).group(1)
+        pw = list(re.search(r': ([a-z]+)', line).group(1))
         digits = re.findall(r'\d+', line)
-        list(pw)
         hi, lo = int(digits[1]), int(digits[0])
         if letter == pw[hi-1] and letter != pw[lo-1]:
             ans += 1
