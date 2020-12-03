@@ -1,7 +1,5 @@
 import re
-
 # Find amount of valid passwords according to policies
-
 file = open("input.txt", "r")
 passwords = file.readlines()
 
@@ -28,9 +26,7 @@ def day1_part2():
         pw = list(re.search(r': ([a-z]+)', line).group(1))
         digits = re.findall(r'\d+', line)
         hi, lo = int(digits[1]), int(digits[0])
-        if letter == pw[hi-1] and letter != pw[lo-1]:
-            ans += 1
-        elif letter == pw[lo-1] and letter != pw[hi-1]:
+        if (pw[lo-1] == letter) ^ (pw[hi-1] == letter):
             ans += 1
     print("Part 2:", ans)
 
