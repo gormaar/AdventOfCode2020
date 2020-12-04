@@ -9,6 +9,7 @@ def day4():
     part2 = 0
     passports = []
     s = ""
+    lines.append("\n")
     for line in lines:
         if line != '\n':
             strippedLine = line.replace('\n', ' ')
@@ -19,7 +20,7 @@ def day4():
             s = ""
     for n in passports:
         for k in n:
-            if k == '' or k == ' ':
+            if k == '':
                 n.remove(k)
     valid_passports = 0
     for i in passports:
@@ -56,8 +57,8 @@ def day4():
                     if len(str(value)) == 9:
                         valid_passports += 1
                 if valid_passports == 7:
-                    print("VALID")
                     part2 += 1
+                    valid_passports = 0
 
     print("Part 1:", part1)
     print("Part 2:", part2)
