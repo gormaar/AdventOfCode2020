@@ -1,28 +1,55 @@
 # Calculate the higherst seat ID on a boarding pass
+import math
 file = open("input.txt", "r")
 lines = file.readlines()
 
-def day5():
-    ans = 0
-    row = 0
-    half_row = 64
-    col = 0
-    half_col = 4
-    for boardingpass in lines:
-        boardingpass = boardingpass.strip()
-        for letter in boardingpass:
-            if letter == 'F':
-                row += half_row
-            row /= 2
-            if letter == 'R':
-                col += half_col
-                half_row /= 2
-            elif letter == 'L':
-                half_col /= 2
-            id = row*8+col
-            ans = max(ans, id)
-    print(ans)
+boardingpasses = []
+ans = 0
+for boardingpass in lines:
+    row, col = 0, 0
+    row_len, col_len = 127, 7
+    boardingpass.strip()
+    for letter in boardingpass:
+        if letter == 'F':
+            row_len /= 2
+            row_len += row/2
+            row_len = int(row_len)
+        elif letter == 'B':
+            row += (row_len/2)-(row/2)
+            row = math.ceil(row)
+        if letter == 'R':
+            col += (col_len/2)-(col/2)
+            col = math.ceil(col)
+        elif letter == 'L':
+            col_len /= 2
+            col_len += col/2
+            col_len = int(col_len)
+    boardingpass_id = row*8+col
+    boardingpasses.append(boardingpass_id)
+    ans = max(ans, boardingpass_id)
+print(ans)
 
-
-if __name__ == '__main__':
-    day5()
+for boardingpass in lines:
+    row, col = 0, 0
+    row_len, col_len = 127, 7
+    boardingpass.strip()
+    for letter in boardingpass:
+        if letter == 'F':
+            row_len /= 2
+            row_len += row/2
+            row_len = int(row_len)
+        elif letter == 'B':
+            row += (row_len/2)-(row/2)
+            row = math.ceil(row)
+        if letter == 'R':
+            col += (col_len/2)-(col/2)
+            col = math.ceil(col)
+        elif letter == 'L':
+            col_len /= 2
+            col_len += col/2
+            col_len = int(col_len)
+    boardingpass_id = row*8+col
+    if boardingpass_id - 1 not in boardingpasses:
+        print("My boardingpassID", boardingpass_id-1)
+    elif boardingpass_id + 1 not in boardingpasses:
+        print("My boardingpassID", boardingpass_id+1)
